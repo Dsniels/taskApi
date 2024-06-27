@@ -17,7 +17,7 @@ public class Tasks : ClaseBase
 
     public DateTimeOffset Date {get; set; }
 
-    public Usuario Usuario { get; set;}
+    public bool Status {get; set; }
 
 
 }
