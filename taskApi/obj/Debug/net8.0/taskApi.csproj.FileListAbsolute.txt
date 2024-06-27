@@ -1,0 +1,7 @@
+D:\Repositorios\taskApi\taskApi\obj\Debug\net8.0\taskApi.csproj.AssemblyReference.cache
+D:\Repositorios\taskApi\taskApi\obj\Debug\net8.0\taskApi.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repositorios\taskApi\taskApi\obj\Debug\net8.0\taskApi.AssemblyInfoInputs.cache
+D:\Repositorios\taskApi\taskApi\obj\Debug\net8.0\taskApi.AssemblyInfo.cs
+D:\Repositorios\taskApi\taskApi\obj\Debug\net8.0\taskApi.csproj.CoreCompileInputs.cache
+D:\Repositorios\taskApi\taskApi\obj\Debug\net8.0\taskApi.MvcApplicationPartsAssemblyInfo.cache
+D:\Repositorios\taskApi\taskApi\obj\Debug\net8.0\taskApi.sourcelink.json
