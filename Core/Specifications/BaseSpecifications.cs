@@ -10,18 +10,42 @@ namespace Core.Specifications
 {
     public class BaseSpecifications<T> : ISpecifications<T> where T : ClaseBase
     {
-        public Expression<Func<T, bool>> Criteria => throw new NotImplementedException();
+        public BaseSpecifications(){}
 
-        public Expression<Func<T, object>> OrderBy => throw new NotImplementedException();
+        public BaseSpecifications(Expression<Func<T,bool>> criteria)
+        {
+            Criteria = criteria;
+        }
+        
+        public Expression<Func<T, bool>> Criteria { get; }
 
-        public Expression<Func<T, object>> OrderByDescending => throw new NotImplementedException();
 
-        public List<Expression<Func<T, object>>> Includes => throw new NotImplementedException();
+        public Expression<Func<T, object>> OrderBy { get; private set; }
+        public void AddOrderBy(Expression<Func<T, object>> orderByExpression)
+        {
+            OrderBy = orderByExpression;
+        }
+        public Expression<Func<T, object>> OrderByDescending {get; private set; }
+        public void AddOrderByDescending(Expression<Func<T,object>> orderByDescExpression)
+        {
+            OrderByDescending = orderByDescExpression;
+        }
+        public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T,object>>>();
+        public void AddInclude(Expression<Func<T, object>> includeExpression) { Includes.Add(includeExpression); }
 
-        public int Take => throw new NotImplementedException();
+        public int Take { get; private set; }
 
-        public int Skip => throw new NotImplementedException();
+        public int Skip { get; private set; }
 
-        public bool IsPagingEnable => throw new NotImplementedException();
+
+        public bool IsPagingEnable { get; private set; }
+
+        public void ApplyPaginng(int skip, int take)
+        {
+            Skip = skip;
+            Take = take;
+            IsPagingEnable = true;
+        }
+
     }
 }

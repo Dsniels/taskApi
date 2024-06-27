@@ -1,0 +1,40 @@
+﻿using System;
+using Core.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Core.Specifications;
+using Microsoft.EntityFrameworkCore;
+
+namespace BusinessLogic.Data
+{
+    public class SpecificationEvaluator<T> where T : ClaseBase
+    {
+        public static IQueryable<T> GetQuery(IQueryable<T> inputQuery, ISpecifications<T> spec)
+        {
+            if (spec.Criteria != null)
+            {
+                inputQuery = inputQuery.Where(spec.Criteria);
+
+            }
+            if (spec.OrderBy != null)
+            {
+                inputQuery = inputQuery.OrderBy(spec.OrderBy);
+            }
+            if (spec.OrderByDescending != null)
+            {
+                inputQuery = inputQuery.OrderByDescending(spec.OrderByDescending);
+            }
+            if (spec.IsPagingEnable)
+            {
+                inputQuery = inputQuery.Skip(spec.Skip).Take(spec.Take);
+            }
+
+            inputQuery = spec.Includes.Aggregate(inputQuery, (current, includes) => current.Include(includes));
+
+            return inputQuery;
+
+        }
+    }
+}
