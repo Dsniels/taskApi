@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Core.Entities;
 using System.Security.Cryptography.X509Certificates;
 using BusinessLogic.Data;
+using Core.Specifications;
 
 namespace BusinessLogic.Logic;
 
@@ -32,6 +33,11 @@ public class GenericRepository<T> : IGenericRepository<T> where T : ClaseBase
         _context.Set<T>().Add(entity);
     }
 
+    public async Task<int> CountAsync(ISpecifications<T> spec)
+    {
+        return await applySpecification(spec).CountAsync();
+    }
+
     public void DeleteEntity(T entity)
     {
         _context.Set<T>().Remove(entity);
@@ -42,9 +48,24 @@ public class GenericRepository<T> : IGenericRepository<T> where T : ClaseBase
         return await _context.Set<T>().ToListAsync();
     }
 
+    public async Task<IReadOnlyList<T>> GetAllWithSpec(ISpecifications<T> spec)
+    {
+         return await applySpecification(spec).ToListAsync();
+    }
+
+    private IQueryable<T> applySpecification(ISpecifications<T> spec)
+    {
+        return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
+    }
+
     public async Task<T> GetByIdAsync(int id)
     {
         return await _context.Set<T>().FindAsync(id);
+    }
+
+    public async Task<T> GetByIdWithSpec(ISpecifications<T> spec)
+    {
+        return await applySpecification(spec).FirstOrDefaultAsync();
     }
 
     public async Task<int> update(T entity)
