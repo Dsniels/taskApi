@@ -10,7 +10,6 @@ public class Usuario : ClaseBase
 {
     public string Name { get; set; }
     public string Apellido { get; set;}
-
     public List<Tasks> Tareas {get; set; }
 
 
